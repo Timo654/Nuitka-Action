@@ -245,7 +245,7 @@ runs:
             ARGS+=" --include-data-dir=$datum"
           done
         fi
-        f [ "${{ inputs.include-plugin-directory }}" != "" ]; then
+        if [ "${{ inputs.include-plugin-directory }}" != "" ]; then
           for datum in $(echo ${{ inputs.include-plugin-directory }} | sed "s/,/ /g")
           do
             ARGS+=" --include-plugin-directory=$datum"
