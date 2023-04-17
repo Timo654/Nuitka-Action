@@ -164,6 +164,12 @@ runs:
             $args += @("--include-data-dir=$datum");
           }
         }
+        if ("${{ inputs.include-plugin-directory }}" -ne ''){
+          $data = ("${{ inputs.include-plugin-directory }}" -split '\s*,\s*')
+          foreach ($datum in $data) {
+            $args += @("--include-plugin-directory=$datum");
+          }
+        }
         if ("${{ inputs.include-package-data }}" -ne ''){
           $data = ("${{ inputs.include-package-data }}" -split '\s*,\s*')
           foreach ($datum in $data) {
@@ -237,6 +243,12 @@ runs:
           for datum in $(echo ${{ inputs.include-data-dir }} | sed "s/,/ /g")
           do
             ARGS+=" --include-data-dir=$datum"
+          done
+        fi
+        f [ "${{ inputs.include-plugin-directory }}" != "" ]; then
+          for datum in $(echo ${{ inputs.include-plugin-directory }} | sed "s/,/ /g")
+          do
+            ARGS+=" --include-plugin-directory=$datum"
           done
         fi
         if [ "${{ inputs.include-package-data }}" != "" ]; then
